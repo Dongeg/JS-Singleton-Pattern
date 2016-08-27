@@ -12,6 +12,7 @@ javascript单例模式介绍
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8">
 <title>singleleton</title>
 </head>
 <body>
@@ -21,15 +22,17 @@ javascript单例模式介绍
 var createLoginLayer=(function(){
      //在闭包内部声明一个实例（就是一对象）用来存储一个单例实例的引用,意思就是当外部引用 createLoginLayer方法时，实际上应用的就是下面声明的这个对象
      var div ;//初次运行div为空，转换成布尔值是false
-     if(!div){//初次运行为true，创建实例的引用
-        div=document.createElement('div);
-        div.innerHTML='hello world';
-        div.style.display='none';
-        document.body.appendChild(div);
-     }
-     return div;//创建的实例引用要返回
+     return function(){
+	     if(!div){//初次运行为true，创建实例的引用
+	        div=document.createElement('div');
+	        div.innerHTML='hello world';
+	        div.style.display='none';
+	        document.body.appendChild(div);
+	     }
+	     return div;//创建的实例引用要返回
+     } 
 })();
-var loginBtn=document,getElementById("loginBtn");
+var loginBtn=document.getElementById("loginBtn");
 loginBtn.onclick=function(){
    //注意！！要调用方法了
    var loginLayer = createLoginLayer();
